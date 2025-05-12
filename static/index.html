@@ -11,8 +11,6 @@
   <link rel="stylesheet" href="/assets/css/global.css?v=6" />
   <link rel="stylesheet" href="/assets/css/h.css?v=01" />
   <link rel="stylesheet" href="/assets/css/nav.css?v=01" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6840529569014734"
-    crossorigin="anonymous"></script>
 </head>
 
 <body class="center" onload="SplashT">
@@ -27,6 +25,14 @@
           <input id="iv" class="search-home" placeholder="Search or enter a URL" type="text" />
         </form>
       </div>
+      <div id="countdown-container" style="text-align: center; margin-top: 20px; font-size: 1.5em; color: white;">
+        <h3>Time until school is out:</h3>
+        <span id="weeks"></span> Weeks
+        <span id="days"></span> Days
+        <span id="hours"></span> Hours
+        <span id="minutes"></span> Minutes
+        <span id="seconds"></span> Seconds
+      </div>
     </div>
   </div>
   <script src="assets/js/005.js?v=000"></script>
@@ -35,18 +41,35 @@
   <script src="./assets/mathematics/config.js?v=2025-04-15"></script>
   <script src="assets/js/003.js?v=000"></script>
   <script src="/assets/js/001.js?v=001"></script>
-  <!-- DO NOT REMOVE-->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKJQ5QHQTJ"></script>
   <script>
-    window.dataLayer = window.dataLayer || []
-    function gtag() {
-      dataLayer.push(arguments)
-    }
-    gtag("js", new Date())
+    function startCountdown() {
+      const countdownDate = new Date("May 22, 2025 15:35:00").getTime();
 
-    gtag("config", "G-WKJQ5QHQTJ")
+      const countdownInterval = setInterval(function () {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+
+        const weeks = Math.floor(distance / (1000 * 60 * 60 * 24 * 7));
+        const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("weeks").innerText = weeks;
+        document.getElementById("days").innerText = days;
+        document.getElementById("hours").innerText = hours;
+        document.getElementById("minutes").innerText = minutes;
+        document.getElementById("seconds").innerText = seconds;
+
+        if (distance < 0) {
+          clearInterval(countdownInterval);
+          document.getElementById("countdown-container").innerHTML = "EXPIRED";
+        }
+      }, 1000);
+    }
+    // Start countdown when the window loads
+    window.addEventListener('load', startCountdown);
   </script>
-  <!-- DO NOT REMOVE-->
 </body>
 
 </html>
